@@ -3,7 +3,7 @@ games { 'gta5' }
 
 author 'HenkW'
 description 'Container Robbery Script'
-version '1.0.5'
+version '1.1.0'
 
 dependency 'es_extended'
 
@@ -18,6 +18,7 @@ server_scripts {
 }
 
 shared_scripts {
+    'locales/locales.lua',
     'config/config.lua',
     '@es_extended/imports.lua'
 }
