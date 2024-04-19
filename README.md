@@ -1,21 +1,22 @@
-# HW Container Robbery
+# HW Scripts | Container Robbery
 
 **Description**
-
 Dive into a thrilling experience with the ESX-based HW Container Robbery script for GTA V FiveM servers. This script introduces an engaging robbery system, allowing players to search for valuable items within shipping containers scattered across the map. Enhanced with realistic interactions and Discord logging for server administration, it ensures both immersion and manageability.
 
 **Author**
 - HW Development | HenkW
 
 **Changelog:**
-- Initial release featuring searchable containers with valuable loot.
-- Integrated Discord logging for all robbery activities to enhance server security.
+- Optimized client.lua
+- Optimized server.lua
+- Made script more readable
+- Reduced 'start_robbery' marker distance to 30%
 
 :tools: **Requirements**
-- ESX Server
+- ESX Server (es_extended)
 
 :globe_with_meridians: **Requirements Download links**
-- [No additional downloads required for this script]
+- [es_extended](https://github.com/esx-framework/esx_core)
 
 :white_check_mark: **Features**
 - Interactive container robbery system for players seeking high-reward challenges.

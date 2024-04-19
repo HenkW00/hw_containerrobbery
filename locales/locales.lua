@@ -1,18 +1,14 @@
 Locales = {}
 
------------------
------LOCALES-----
------------------
 Locales['en'] = {
-    ['start_robbery'] = '~y~Press ~r~[E] ~y~to start the robbery',
-    ['search_container'] = '~y~Press ~r~[E] ~y~to search',
-    ['robbery_completed'] = '~g~Robbery completed. ~y~Get to safety!',
-    ['robbery_in_progress'] = '~y~A robbery is already in progress.',
-    ['wait_before_next_robbery'] = '~r~Please wait before starting another robbery.',
-    ['robbery_successful'] = '~g~Robbery successful! ~y~Reward: $%s',
-    ['no_weapon'] = '~r~You need a specific weapon to start the robbery.',
-    ['not_enough_police'] = '~r~Not ~y~enough cops online!',
-    ['robbery_cancelled'] = '~r~You canceled the robbery!',
+    ['start_robbery'] = 'Press E to start the robbery',
+    ['search_container'] = 'Press E to search',
+    ['robbery_completed'] = 'Robbery completed. Get to safety!',
+    ['robbery_in_progress'] = 'A robbery is already in progress.',
+    ['wait_before_next_robbery'] = 'Please wait before starting another robbery.',
+    ['robbery_successful'] = 'Robbery successful! Reward: $%s',
+    ['no_weapon'] = 'You need a specific weapon to start the robbery.'
+    -- Add more strings as needed
 }
 
 Locales['nl'] = {
@@ -22,9 +18,7 @@ Locales['nl'] = {
     ['robbery_in_progress'] = 'Er is al een overval bezig.',
     ['wait_before_next_robbery'] = 'Wacht even voordat je een andere overval start.',
     ['robbery_successful'] = 'Overval geslaagd! Beloning: $%s',
-    ['no_weapon'] = 'Je hebt een specifiek wapen nodig om de overval te starten.',
-    ['not_enough_police'] = 'Niet genoeg politie online!',
-    ['robbery_cancelled'] = 'Je hebt de overval geannuleerd!',
+    -- Voeg meer strings toe indien nodig
 }
 
 Locales['de'] = {
@@ -34,9 +28,7 @@ Locales['de'] = {
     ['robbery_in_progress'] = 'Ein Überfall findet bereits statt.',
     ['wait_before_next_robbery'] = 'Bitte warte, bevor du einen weiteren Überfall startest.',
     ['robbery_successful'] = 'Überfall erfolgreich! Belohnung: $%s',
-    ['no_weapon'] = 'Du brauchst eine spezifische Waffe, um den Raub zu starten.',
-    ['not_enough_police'] = 'Nicht genug Polizisten online!',
-    ['robbery_cancelled'] = 'Der Raub wurde abgebrochen!',
+    -- Füge bei Bedarf weitere Strings hinzu
 }
 
 -- Add more if needed :)

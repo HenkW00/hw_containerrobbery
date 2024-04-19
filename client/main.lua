@@ -1,25 +1,25 @@
 ESX = exports["es_extended"]:getSharedObject()
 
----------------
------UTILS-----
----------------
+-------------
+----UTILS----
+-------------
 local isRobbing = false
 local startTime = 0
 local robberyDuration = Config.Time * 60000
 local containerBlips = {}
 
----------------
---Translation--
----------------
+-------------------
+----TRANSLATION----
+-------------------
 function _U(key, ...)
     local locale = Config.Locale or 'en'
     local text = Locales[locale] and Locales[locale][key] or 'Translation error: key %s not found'
     return string.format(text, ...)
 end
 
---------------
------TEXT-----
---------------
+-------------------
+----TEXT HELPER----
+-------------------
 function DrawScreenText(text, x, y)
     SetTextFont(4)
     SetTextScale(0.45, 0.45)
@@ -31,27 +31,9 @@ function DrawScreenText(text, x, y)
     EndTextCommandDisplayText(x, y)
 end
 
-----------------------
------POLICE CHECK-----
-----------------------
-RegisterNetEvent('hw_containerrobbery:startRobberyResult')
-AddEventHandler('hw_containerrobbery:startRobberyResult', function(success)
-    if not success then
-        isRobbing = false
-        for _, blip in pairs(containerBlips) do
-            RemoveBlip(blip)
-        end
-        containerBlips = {}
-        ESX.ShowNotification("~r~Not ~y~enough police officers online to ~g~start ~y~the robbery.")
-    else
-        isRobbing = true
-        startTime = GetGameTimer()
-    end
-end)
-
------------------------
------START ROBBERY-----
------------------------
+---------------------
+----START ROBBERY----
+---------------------
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
@@ -59,7 +41,8 @@ Citizen.CreateThread(function()
         local coords = GetEntityCoords(playerPed)
         local dist = Vdist(coords.x, coords.y, coords.z, Config.StartLocation.x, Config.StartLocation.y, Config.StartLocation.z)
 
-        if dist < 100 and not isRobbing then
+        if dist < 30.0 and not isRobbing then
+            Citizen.Wait(0)
             DrawMarker(1, Config.StartLocation.x, Config.StartLocation.y, Config.StartLocation.z - 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0, 1.0, 255, 0, 0, 100, false, true, 2, false, false, false, false)
             if dist < 1.5 then
                 ESX.ShowHelpNotification(_U('start_robbery'))
@@ -73,6 +56,7 @@ Citizen.CreateThread(function()
                         end
                     end
                     if hasRequiredWeapon then
+                        Citizen.Wait(0)
                         isRobbing = true
                         startTime = GetGameTimer()
 
@@ -83,9 +67,9 @@ Citizen.CreateThread(function()
 
                         for i, container in ipairs(Config.Containers) do
                             local blip = AddBlipForCoord(container.x, container.y, container.z)
-                            SetBlipSprite(blip, 143)
+                            SetBlipSprite(blip, 161)
                             SetBlipColour(blip, 1) 
-                            SetBlipScale(blip, 0.5)
+                            SetBlipScale(blip, 0.8)
                             BeginTextCommandSetBlipName("STRING")
                             AddTextComponentString("Container")
                             EndTextCommandSetBlipName(blip)
@@ -116,9 +100,9 @@ Citizen.CreateThread(function()
     end
 end)
 
---------------------------
------SEARCH CONTAINER-----
---------------------------
+------------------------
+----SEARCH CONTAINER----
+------------------------
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
@@ -137,9 +121,9 @@ Citizen.CreateThread(function()
     end
 end)
 
----------------------
------REMOVE BLIP-----
----------------------
+-----------------------------
+----REMOVE CONTAINER BLIP----
+-----------------------------
 RegisterNetEvent('hw_containerrobbery:removeContainerBlip')
 AddEventHandler('hw_containerrobbery:removeContainerBlip', function(containerIndex)
     if containerBlips[containerIndex] then
@@ -148,9 +132,10 @@ AddEventHandler('hw_containerrobbery:removeContainerBlip', function(containerInd
     end
 end)
 
----------------------
------POLICE BLIP-----
----------------------
+
+-------------------
+----POLICE BLIP----
+-------------------
 RegisterNetEvent('hw_containerrobbery:createPoliceBlip')
 AddEventHandler('hw_containerrobbery:createPoliceBlip', function(location)
     local blip = AddBlipForCoord(location.x, location.y, location.z)
