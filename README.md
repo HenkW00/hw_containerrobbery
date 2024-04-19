@@ -7,10 +7,8 @@ Dive into a thrilling experience with the ESX-based HW Container Robbery script 
 - HW Development | HenkW
 
 **Changelog:**
-- Optimized client.lua
-- Optimized server.lua
-- Made script more readable
-- Reduced 'start_robbery' marker distance to 30%
+- Fixed script error: @hw_containerrobbery/client/main.lua:16: attempt to index a nil value (global 'Locales')
+- Also added some more container locations
 
 :tools: **Requirements**
 - ESX Server (es_extended)
