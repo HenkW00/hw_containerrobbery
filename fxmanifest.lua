@@ -3,7 +3,7 @@ games { 'gta5' }
 
 author 'HenkW'
 description 'Container Robbery Script'
-version '1.1.7'
+version '1.1.8'
 
 dependency 'es_extended'
 
