@@ -1,0 +1,17 @@
+{
+    "start_robbery": "Press [E] to start the robbery",
+    "search_container": "Press [E] to search",
+    "robbery_completed": "Robbery completed. Get to safety!",
+    "robbery_in_progress": "A robbery is already in progress.",
+    "wait_before_next_robbery": "Please wait before starting another robbery.",
+    "robbery_successful": "Robbery successful!",
+    "no_weapon": "You need a specific weapon to start the robbery.",
+    "not_enough_police": "Not enough cops online to start robbery!",
+    "robbery_cancelled": "You canceled the robbery!",
+    "unlocked_container": "You unlocked some containers!",
+    "search_time": "Go search them before the time runs out",
+    "bonus_payout": "You got a bonus reward!",
+    "already_searched": "You have already searched this container!",
+    "searching_goods": "Searching the containers for some goods.",
+    "found_goods": "You found some goods out of the container!",
+}

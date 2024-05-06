@@ -1,3 +1,4 @@
+lib.locale()
 ESX = exports["es_extended"]:getSharedObject()
 
 ---------------
@@ -10,32 +11,39 @@ local function debugPrint(message)
 end
 
 ---------------------
+----NOTIFY HELPER----
+---------------------
+local function sendNotification(playerId, message, type, position)
+    TriggerClientEvent('hw_containerrobbery:displayNotification', playerId, message, type, position)
+end
+
+---------------------
 -----DISCORD LOG-----
 ---------------------
 local function sendLog(playerIdentifier, message)
     if Config.Webhook ~= "" and Config.Mode == 'debug' then
         local embeds = {
             {
-                ["title"] = "🚨 Container Robbery Alert",
+                ["title"] = Config.DiscordBotTitle,
                 ["description"] = message,
                 ["type"] = "rich",
-                ["color"] = 0xFF0000,
+                ["color"] = Config.DiscordBotColor,
                 ["fields"] = {
                     {
-                        ["name"] = "Description:",
+                        ["name"] = Config.DiscordBotDescription,
                         ["value"] = playerIdentifier,
                         ["inline"] = true
                     }
                 },
                 ["footer"] = {
-                    ["text"] = "HW Scripts | Container Robbery Logs",
+                    ["text"] = Config.DiscordBotFooter,
                     ["icon_url"] = "https://youriconurlhere.png"
                 },
                 ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
             }
         }
 
-        PerformHttpRequest(Config.Webhook, function(err, text, headers) end, 'POST', json.encode({username = "Robbery Log", embeds = embeds}), {['Content-Type'] = 'application/json'})
+        PerformHttpRequest(Config.Webhook, function(err, text, headers) end, 'POST', json.encode({username = Config.DiscordBotName, embeds = embeds}), {['Content-Type'] = 'application/json'})
     end
 end
 
@@ -71,7 +79,7 @@ AddEventHandler('hw_containerrobbery:startRobbery', function(coords)
     end
 
     if robberiesInProgress[_source] then
-        xPlayer.showNotification("~y~A robbery is ~r~already ~r~in progress.")
+        sendNotification(_source, locale('robbery_in_progress'), 'error', 'top-center')
         return
     end
 
@@ -81,12 +89,12 @@ AddEventHandler('hw_containerrobbery:startRobbery', function(coords)
     end
 
     sendLog(('Robbery started by %s at %s'):format(xPlayer.getIdentifier(), json.encode(coords)))
-    xPlayer.showNotification("~y~You ~g~unlocked ~y~some containers!")
-    xPlayer.showNotification("~y~Go search them before time runs ~r~out!")
+    sendNotification(_source, locale('unlocked_container'), 'success', 'top-center')
+    sendNotification(_source, locale('search_time'), 'info', 'top-center')
 
     Citizen.SetTimeout(Config.Time * 60000, function()
         if robberiesInProgress[_source] then
-            xPlayer.showNotification("~g~You got a bonus payout!")
+            sendNotification(_source, locale('bonus_payout'), 'success', 'top-center')
             xPlayer.addMoney(Config.Reward)
             robberiesInProgress[_source] = nil
         end
@@ -107,13 +115,13 @@ AddEventHandler('hw_containerrobbery:searchContainer', function(containerIndex)
 
     if searchedContainers[containerIndex] then
         TriggerClientEvent('hw_containerrobbery:containerSearched', _source, false)
-        xPlayer.showNotification("~r~You have already searched this container!")
+        sendNotification(_source, locale('already_searched'), 'info', 'top-center')
         if Config.Mode == 'debug' then
             debugPrint(('^0[^1DEBUG^0] ^5Container ^3%s ^5already searched by ^3%s^0'):format(containerIndex, xPlayer.getIdentifier()))
         end
     else
         searchedContainers[containerIndex] = true
-        xPlayer.showNotification("~y~Searching the container!")
+        sendNotification(_source, locale('searching_goods'), 'info', 'top-center')
         Citizen.Wait(5000)
         
         for i = 1, Config.itemAmount do
@@ -129,7 +137,7 @@ AddEventHandler('hw_containerrobbery:searchContainer', function(containerIndex)
                 cumulativeChance = cumulativeChance + reward.chance
                 if randomPoint <= cumulativeChance then
                     xPlayer.addInventoryItem(reward.item, reward.quantity)
-                    xPlayer.showNotification("~g~You found " .. reward.quantity .. " " .. reward.item .. " in the container!")
+                    sendNotification(_source, locale('found_goods'), 'success', 'top-center')
                     break
                 end
             end

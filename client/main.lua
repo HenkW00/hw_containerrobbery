@@ -1,3 +1,4 @@
+lib.locale()
 ESX = exports["es_extended"]:getSharedObject()
 
 ---------------
@@ -7,6 +8,20 @@ local isRobbing = false
 local startTime = 0
 local robberyDuration = Config.Time * 60000
 local containerBlips = {}
+
+---------------------
+----NOTIFY HELPER----
+---------------------
+RegisterNetEvent('hw_containerrobbery:displayNotification')
+AddEventHandler('hw_containerrobbery:displayNotification', function(message, type, position)
+    lib.notify({
+        title = 'Container Robbery',
+        description = message,
+        duration = 3500,
+        type = type or 'inform',
+        position = position or 'top-center'
+    })
+end)
 
 ---------------
 --Translation--
@@ -42,7 +57,12 @@ AddEventHandler('hw_containerrobbery:startRobberyResult', function(success)
             RemoveBlip(blip)
         end
         containerBlips = {}
-        ESX.ShowNotification("~r~Not ~y~enough police officers online to ~g~start ~y~the robbery.")
+        lib.notify({
+            title = 'Container Robbery',
+            description = locale('not_enough_police'),
+            type = 'error',
+            position = 'top-center',
+        })
     else
         isRobbing = true
         startTime = GetGameTimer()
@@ -60,10 +80,12 @@ Citizen.CreateThread(function()
         local dist = Vdist(coords.x, coords.y, coords.z, Config.StartLocation.x, Config.StartLocation.y, Config.StartLocation.z)
 
         if dist < 100 and not isRobbing then
+            lib.hideTextUI()
             DrawMarker(1, Config.StartLocation.x, Config.StartLocation.y, Config.StartLocation.z - 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0, 1.0, 255, 0, 0, 100, false, true, 2, false, false, false, false)
             if dist < 1.5 then
-                ESX.ShowHelpNotification(_U('start_robbery'))
+                lib.showTextUI(locale('start_robbery'))
                 if IsControlJustReleased(0, 38) and not isRobbing then
+                    lib.hideTextUI()
                     local currentWeapon = GetSelectedPedWeapon(playerPed)
                     local hasRequiredWeapon = false
                     for _, weapon in pairs(Config.Weapons) do
@@ -94,7 +116,11 @@ Citizen.CreateThread(function()
 
                         TriggerServerEvent('hw_containerrobbery:startRobbery', coords)
                     else
-                        ESX.ShowNotification(_U('no_weapon'))
+                        lib.notify({
+                            title = 'Contianer Robbery',
+                            description = locale('no_weapon'),
+                            type = 'error'
+                        })
                     end
                 end
             end
@@ -110,7 +136,12 @@ Citizen.CreateThread(function()
                 DrawScreenText(string.format("%02d:%02d", mins, secs), 0.5, 0.01)
             else
                 isRobbing = false
-                ESX.ShowNotification(_U('robbery_completed'))
+                lib.notify({
+                    title = 'Container Robbery',
+                    description = locale('robbery_completed'),
+                    type = 'success',
+                    position = 'top-center',
+                })
             end
         end
     end
@@ -127,8 +158,19 @@ Citizen.CreateThread(function()
             for i, container in ipairs(Config.Containers) do
                 local dist = #(playerPos - vector3(container.x, container.y, container.z))
                 if dist < 2.0 then
-                    ESX.ShowHelpNotification(_U('search_container'))
+                    lib.showTextUI(locale('search_container'))
                     if IsControlJustReleased(0, 38) then
+                        lib.progressCircle({
+                            duration = 1000,
+                            position = 'bottom',
+                            label = 'Opening container...',
+                            useWhileDead = false,
+                            canCancel = true,
+                            disable = {
+                                car = true,
+                                move = true,
+                            },
+                        })
                         TriggerServerEvent('hw_containerrobbery:searchContainer', i)
                     end
                 end
@@ -154,11 +196,11 @@ end)
 RegisterNetEvent('hw_containerrobbery:createPoliceBlip')
 AddEventHandler('hw_containerrobbery:createPoliceBlip', function(location)
     local blip = AddBlipForCoord(location.x, location.y, location.z)
-    SetBlipSprite(blip, 161)
+    SetBlipSprite(blip, Config.PoliceBlipSprite)
     SetBlipScale(blip, 1.0)
-    SetBlipColour(blip, 3)
+    SetBlipColour(blip, Config.PoliceBlipColor)
     BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString('Container Robbery In Progress')
+    AddTextComponentString(Config.PoliceBlipName)
     EndTextCommandSetBlipName(blip)
     SetBlipAsShortRange(blip, false)
     Citizen.SetTimeout(90000, function() 

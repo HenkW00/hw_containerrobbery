@@ -1,11 +1,14 @@
 fx_version 'cerulean'
 games { 'gta5' }
+lua54 'yes'
 
 author 'HenkW'
-description 'Container Robbery Script'
-version '1.1.9'
+description 'Container Robbery Script using lib libary'
+version '1.2.0'
 
-dependency 'es_extended'
+files {
+    'locales/*.json'
+}
 
 client_scripts {
     'client/main.lua',
@@ -18,7 +21,13 @@ server_scripts {
 }
 
 shared_scripts {
-    'locales/locales.lua',
     'config/config.lua',
-    '@es_extended/imports.lua'
+    '@es_extended/imports.lua',
+    '@ox_lib/init.lua'
+}
+
+dependencies {
+    'es_extended',
+    'hw_utils',
+    'ox_lib',
 }
