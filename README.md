@@ -9,10 +9,6 @@ Dive into a thrilling experience with the ESX-based HW Container Robbery script 
 **Author**
 - HW Development | HenkW
 
-**Changelog:**
-- Fixed script error: @hw_containerrobbery/client/main.lua:16: attempt to index a nil value (global 'Locales')
-- Also added some more container locations
-
 :tools: **Requirements**
 - ESX Server (es_extended)
 

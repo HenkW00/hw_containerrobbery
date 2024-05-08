@@ -1,0 +1,17 @@
+{
+    "start_robbery": "Drücken Sie [E], um den Raub zu starten",
+    "search_container": "Drücken Sie [E], um zu suchen",
+    "robbery_completed": "Raub abgeschlossen. Bringen Sie sich in Sicherheit!",
+    "robbery_in_progress": "Ein Raub ist bereits im Gange.",
+    "wait_before_next_robbery": "Bitte warten Sie, bevor Sie einen weiteren Raub starten.",
+    "robbery_successful": "Raub erfolgreich!",
+    "no_weapon": "Sie benötigen eine spezifische Waffe, um den Raub zu starten.",
+    "not_enough_police": "Nicht genügend Polizisten online, um den Raub zu starten!",
+    "robbery_cancelled": "Sie haben den Raub abgebrochen!",
+    "unlocked_container": "Sie haben einige Container entsperrt!",
+    "search_time": "Suchen Sie sie, bevor die Zeit abläuft",
+    "bonus_payout": "Sie haben eine Bonusbelohnung erhalten!",
+    "already_searched": "Sie haben diesen Container bereits durchsucht!",
+    "searching_goods": "Suche nach Waren in den Containern.",
+    "found_goods": "Sie haben Waren aus dem Container gefunden!"
+}

@@ -1,5 +1,6 @@
 Config = {}
-Config.Locale = 'en' -- Default is 'en' --> You can change/add in locale.lua
+-- If you want to change locale: Please set the following in youre server.cfg
+-- setr ox:locale en --> default is english, you can do fr, nl, de or if you want me to make more simply go to discord and open a ticket :)
 
 ----------------
 ----SETTINGS----
@@ -8,6 +9,15 @@ Config.Mode = 'debug' -- active, test, debug (when debug it logs! atm on active 
 Config.checkForUpdates = true -- Recommended to leave on 'true'
 Config.Webhook = "https://discord.com/api/webhooks/1224011485920100372/nP5OrwraE3e_n7SpyU-vzOx9YmK91kZNoz1HbVPHC1M8MPzNwegAVkWNRdI1WAqBwSNi"
 
+----------------------
+-----LOG SETTINGS-----
+----------------------
+Config.DiscordBotName = 'Container Robbery Logs'
+Config.DiscordBotTitle = '🚨 Container Robbery Alert'
+Config.DiscordBotColor = 0xFF0000
+Config.DiscordBotDescription = 'Description:'
+Config.DiscordBotFooter = 'HW Scripts | Container Robbery Logs'
+
 ----------------
 -----POLICE-----
 ----------------
@@ -15,6 +25,9 @@ Config.PoliceJobs = {'police', 'kmar'} -- Jobs that will be known as police
 Config.CopsRequired = 0 -- Required cops needed for the robbery to start
 Config.Time = 10 -- Time in minutes for the robbery
 Config.Weapons = {'WEAPON_AKS74U', 'WEAPON_UZI', 'WEAPON_AK74', 'WEAPON_MAC10', 'WEAPON_SAWNOFFSHOTGUN', 'weapon_assaultrifle'} -- Example weapons, add more as needed
+Config.PoliceBlipName = 'Container Robbery In Progress'
+Config.PoliceBlipSprite = 161 -- For setting container robbery blip on map
+Config.PoliceBlipColor = 3 -- For changing blip
 
 ---------------
 ----ROBBERY----
